@@ -12,4 +12,12 @@
         <name>yarn.resourcemanager.hostname</name>
         <value>hadoop-master</value>
     </property>
+    <property>
+        <name>yarn.nodemanager.hostname</name>
+        <value>hadoop-master</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.webapp.address</name>
+        <value>${yarn.nodemanager.hostname}:8042</value>
+    </property>
 </configuration>

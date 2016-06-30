@@ -1,1 +1,7 @@
 .DS_Store
+spark-1.6.1-bin-hadoop2.6.tgz
+jdk-8u91-linux-x64.tar.gz
+scala-2.10.4.tar.gz
+hadoop-2.7.2.tar.gz
+.DS_Store
+config/.DS_Store
