@@ -26,7 +26,7 @@ ENV SPARK_HOME=/usr/local/spark
 # set environment variable
 COPY soft/jdk-8u91-linux-x64.tar.gz .
 RUN mkdir -p /usr/lib/jvm
-RUN tar -xvf jdk-8u91-linux-x64.tar.gz && mv jdk1.8.0_91 /usr/lib/jvm/java && jdk-8u91-linux-x64.tar.gz
+RUN tar -xvf jdk-8u91-linux-x64.tar.gz && mv jdk1.8.0_91 /usr/lib/jvm/java && rm -rf jdk-8u91-linux-x64.tar.gz
 ENV JAVA_HOME=/usr/lib/jvm/java
 ENV HADOOP_HOME=/usr/local/hadoop 
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
