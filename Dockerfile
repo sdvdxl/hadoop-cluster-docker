@@ -42,7 +42,7 @@ RUN mkdir -p /data/hdfs/namenode && \
     mkdir -p /data/hdfs/datanode && \
     mkdir -p /data/logs/hadoop
 
-RUN ln -s /data/logs/hadoop/logs /usr/local/hadoop/logs
+RUN ln -s /data/logs/hadoop/ /usr/local/hadoop/logs
 
 COPY config/* /tmp/
 
