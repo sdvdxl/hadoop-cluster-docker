@@ -1,37 +1,38 @@
 ##Run Hadoop Custer within Docker Containers
 
-- Blog: [Run Hadoop Cluster in Docker Update](http://kiwenlau.com/2016/06/26/hadoop-cluster-docker-update-english/)
-- 博客: [基于Docker搭建Hadoop集群之升级版](http://kiwenlau.com/2016/06/12/160612-hadoop-cluster-docker-update/)
+本库克隆自[https://github.com/kiwenlau/hadoop-cluster-docker](https://github.com/kiwenlau/hadoop-cluster-docker) 并进行了适当修改，修改了部分错误，并修改源为国内的，从国内地址下载响应软件，以加快处理速度。
 
+#####1. download soft
+本库中并未提交对应的软件，下面列出用到的软件，下载后重命名为要求的名字并放到本库根目录下：     
 
-![alt tag](https://raw.githubusercontent.com/kiwenlau/hadoop-cluster-docker/master/hadoop-cluster-docker.png)
-
-
-###3 Nodes Hadoop Cluster
-
-#####1. pull docker image
-
-```
-sudo docker pull kiwenlau/hadoop:1.0
-```
-
+软件 | 名字和版本 |地址(如果下载不下载或者不放心，也可以从官方下载)
+-----| ----- | -----
+scala|scala-2.10.4.tar.gz|http://7xrmam.com1.z0.glb.clouddn.com/scala-2.10.4.tar.gz
+spark|spark-1.6.1-bin-hadoop2.6.tgz|http://7xrmam.com1.z0.glb.clouddn.com/spark-1.6.1-bin-hadoop2.6.tgz
+hadoop|hadoop-2.7.2.tar.gz|http://7xrmam.com1.z0.glb.clouddn.com/hadoop-2.7.2.tar.gz
 #####2. clone github repository
 
 ```
-git clone https://github.com/kiwenlau/hadoop-cluster-docker
+git clone https://github.com/sdvdxl/hadoop-cluster-docker.git
 ```
 
 #####3. create hadoop network
 
 ```
-sudo docker network create --driver=bridge hadoop
+docker network create --driver=bridge hadoop
 ```
 
-#####4. start container
+#####4. docker build image
 
 ```
 cd hadoop-cluster-docker
-sudo ./start-container.sh
+docker build -t hadoop-cluster .
+```
+
+#####5. start container
+
+```
+./start-container.sh
 ```
 
 **output:**
@@ -45,13 +46,13 @@ root@hadoop-master:~#
 - start 3 containers with 1 master and 2 slaves
 - you will get into the /root directory of hadoop-master container
 
-#####5. start hadoop
+#####6. start hadoop
 
 ```
 ./start-hadoop.sh
 ```
 
-#####6. run wordcount
+#####7. run wordcount
 
 ```
 ./run-wordcount.sh
@@ -81,7 +82,7 @@ do 1~3 like section A
 #####2. rebuild docker image
 
 ```
-sudo ./resize-cluster.sh 5
+./resize-cluster.sh 5
 ```
 - specify parameter > 1: 2, 3..
 - this script just rebuild hadoop image with different **slaves** file, which pecifies the name of all slave nodes
@@ -90,7 +91,7 @@ sudo ./resize-cluster.sh 5
 #####3. start container
 
 ```
-sudo ./start-container.sh 5
+./start-container.sh 5
 ```
 - use the same parameter as the step 2
 

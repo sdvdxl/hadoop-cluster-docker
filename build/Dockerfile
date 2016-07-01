@@ -36,7 +36,6 @@ ENV PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCAL
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-RUN mkdir /data
 RUN mkdir -p ~/hdfs/namenode && \ 
     mkdir -p ~/hdfs/datanode && \
     mkdir $HADOOP_HOME/logs
@@ -62,6 +61,5 @@ RUN chmod +x ~/start-hadoop.sh && \
 RUN /usr/local/hadoop/bin/hdfs namenode -format
 #EXPOSE 9000 50090 36788 50070 22 8030 8031 8032 8033 8088 33531
 VOLUME /bigdata
-VOLUME /data
 CMD [ "sh", "-c", "service ssh start; bash"]
 

@@ -15,6 +15,7 @@ echo "start hadoop-master container..."
                 -p 8030:8030 \
                 -p 8042:8042 \
                 -v /Users/du/bigdata:/bigdata \
+                -v /data:/data \
                 --name hadoop-master \
                 --hostname hadoop-master \
                 hadoop-cluster &> /dev/null
