@@ -20,7 +20,7 @@ ENV SCALA_HOME=/usr/local/jvm/scala-2.10.4
 
 #spark
 COPY soft/spark-1.6.1-bin-hadoop2.6.tgz .
-RUN tar -xvf soft/spark-1.6.1-bin-hadoop2.6.tgz && mv spark-1.6.1-bin-hadoop2.6 /usr/local/spark && rm -rf spark-1.6.1-bin-hadoop2.6.tgz 
+RUN tar -xvf spark-1.6.1-bin-hadoop2.6.tgz && mv spark-1.6.1-bin-hadoop2.6 /usr/local/spark && rm -rf spark-1.6.1-bin-hadoop2.6.tgz 
 ENV SPARK_HOME=/usr/local/spark
 
 # set environment variable
