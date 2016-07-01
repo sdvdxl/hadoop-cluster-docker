@@ -1,31 +1,32 @@
-FROM ubuntu:14.04
+FROM tutum/ubuntu:trusty
 
-MAINTAINER KiwenLau <kiwenlau@gmail.com>
+MAINTAINER sdvdxl <sdvdxl@163.com>
 
 WORKDIR /root
 
 # install openssh-server, openjdk and wget
 COPY config/sources.list.trusty /tmp/
 RUN cat /tmp/sources.list.trusty>/etc/apt/sources.list
-RUN apt-get update && apt-get install -y openssh-server 
+#RUN apt-get update && apt-get install -y openssh-server 
+RUN rm -rf /tmp/sources.list.trusty
 
 # install hadoop 2.7.2
-ADD hadoop-2.7.2.tar.gz .
+ADD soft/hadoop-2.7.2.tar.gz .
 RUN mv hadoop-2.7.2 /usr/local/hadoop
 
 # scala
-ADD scala-2.10.4.tar.gz /usr/local/jvm
+ADD soft/scala-2.10.4.tar.gz /usr/local/jvm
 ENV SCALA_HOME=/usr/local/jvm/scala-2.10.4
 
 #spark
-COPY spark-1.6.1-bin-hadoop2.6.tgz .
-RUN tar -xvf spark-1.6.1-bin-hadoop2.6.tgz && mv spark-1.6.1-bin-hadoop2.6 /usr/local/spark
+COPY soft/spark-1.6.1-bin-hadoop2.6.tgz .
+RUN tar -xvf soft/spark-1.6.1-bin-hadoop2.6.tgz && mv spark-1.6.1-bin-hadoop2.6 /usr/local/spark && rm -rf spark-1.6.1-bin-hadoop2.6.tgz 
 ENV SPARK_HOME=/usr/local/spark
 
 # set environment variable
-COPY jdk-8u91-linux-x64.tar.gz .
+COPY soft/jdk-8u91-linux-x64.tar.gz .
 RUN mkdir -p /usr/lib/jvm
-RUN tar -xvf jdk-8u91-linux-x64.tar.gz && mv jdk1.8.0_91 /usr/lib/jvm/java
+RUN tar -xvf soft/jdk-8u91-linux-x64.tar.gz && mv jdk1.8.0_91 /usr/lib/jvm/java jdk-8u91-linux-x64.tar.gz
 ENV JAVA_HOME=/usr/lib/jvm/java
 ENV HADOOP_HOME=/usr/local/hadoop 
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
@@ -33,13 +34,12 @@ ENV YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCALA_HOME/bin:$SPARK_HOME/bin
 
 # ssh without key
-RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+#RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+RUN  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-RUN mkdir /data
-RUN mkdir -p ~/hdfs/namenode && \ 
-    mkdir -p ~/hdfs/datanode && \
-    mkdir $HADOOP_HOME/logs
+RUN mkdir -p /data/hdfs/namenode && \ 
+    mkdir -p /data/hdfs/datanode && \
+    mkdir -p /data/logs/hadoop
 
 COPY config/* /tmp/
 
@@ -51,7 +51,8 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
     mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-    mv /tmp/run-wordcount.sh ~/run-wordcount.sh
+    mv /tmp/run-wordcount.sh ~/run-wordcount.sh &&\
+    mv /tmp/init-hdfs.sh ~/init-hdfs.sh
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
@@ -59,7 +60,6 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
 
 # format namenode
-RUN /usr/local/hadoop/bin/hdfs namenode -format
 #EXPOSE 9000 50090 36788 50070 22 8030 8031 8032 8033 8088 33531
 VOLUME /bigdata
 VOLUME /data
