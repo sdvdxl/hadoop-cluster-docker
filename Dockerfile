@@ -34,8 +34,8 @@ ENV YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCALA_HOME/bin:$SPARK_HOME/bin
 
 # ssh without key
-#RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
-RUN  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 
 RUN mkdir -p /data/hdfs/namenode && \ 
