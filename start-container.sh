@@ -14,7 +14,7 @@ echo "start hadoop-master container..."
                 -p 9000:9000 \
                 -p 8030:8030 \
                 -p 8042:8042 \
-                -p 2222:2222\
+                -p 2222:22\
                 -v /Users/du/bigdata:/bigdata \
                 -v /data:/data \
                 --name hadoop-master \

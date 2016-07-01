@@ -20,10 +20,10 @@ ADD soft/scala-2.10.4.tar.gz /usr/local/jvm
 ADD soft/spark-1.6.1-bin-hadoop2.6.tar.gz  /usr/local
 
 # java
-ADD soft/jdk-8u91-linux-x64.tar.gz /usr/local/jvm/java
+ADD soft/jdk-8u91-linux-x64.tar.gz /usr/local/jvm
 
 # set environment variable
-ENV JAVA_HOME=/usr/lib/jvm/jdk-8u91-linux-x64
+ENV JAVA_HOME=/usr/local/jvm/jdk-8u91-linux-x64
 ENV SPARK_HOME=/usr/local/spark-1.6.1-bin-hadoop2.6
 ENV SCALA_HOME=/usr/local/jvm/scala-2.10.4.
 ENV HADOOP_HOME=/usr/local/hadoop-2.7.2
@@ -42,10 +42,10 @@ RUN mkdir -p /data/hdfs/namenode && \
 
 RUN ln -s /data/logs/hadoop/ $HADOOP_HOME/logs
 
-COPY config/ssh_config ~/.ssh/config
+COPY config/ssh_config /root/.ssh/config
 COPY config/hadoop-env.sh config/hdfs-site.xml config/hdfs-site.xml config/core-site.xml \
      config/core-site.xml config/mapred-site.xml config/yarn-site.xml config/yarn-site.xml \
-    config/slaves /usr/local/hadoop/etc/hadoop/
+    config/slaves $HADOOP_HOME/etc/hadoop/
 COPY config/start-hadoop.sh config/run-wordcount.sh config/init-hdfs.sh /root/
 
 RUN chmod +x ~/start-hadoop.sh && \
@@ -57,5 +57,5 @@ RUN chmod +x ~/start-hadoop.sh && \
 #EXPOSE 9000 50090 36788 50070 22 8030 8031 8032 8033 8088 33531
 VOLUME /bigdata
 VOLUME /data
-CMD [ "sh", "-c", "service ssh start; bash"]
+CMD [ "sh", "-c", "service ssh restart; bash"]
 
