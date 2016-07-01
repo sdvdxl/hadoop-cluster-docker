@@ -3,7 +3,7 @@ FROM tutum/ubuntu:trusty
 MAINTAINER sdvdxl <sdvdxl@163.com>
 
 WORKDIR /root
-RUN ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 # install openssh-server, openjdk and wget
 COPY config/sources.list.trusty /tmp/
 RUN cat /tmp/sources.list.trusty>/etc/apt/sources.list
