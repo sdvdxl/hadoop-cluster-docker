@@ -37,9 +37,12 @@ ENV PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCAL
 #RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 RUN  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
+
 RUN mkdir -p /data/hdfs/namenode && \ 
     mkdir -p /data/hdfs/datanode && \
     mkdir -p /data/logs/hadoop
+
+RUN ln -s /data/logs/hadoop/logs /usr/local/hadoop/logs
 
 COPY config/* /tmp/
 
