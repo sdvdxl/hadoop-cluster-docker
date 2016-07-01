@@ -75,5 +75,8 @@ Hadoop    1
 Hello    2
 ```
 
-##### 10. 挂载目录
+##### 10. 通过web查看application
+如果是windows或者mac，通过 `docker-machine ip default` 命令查看docker ip，然后可以在浏览器中通过 `ip:8088` 进行查看。如果是linux直接通过linux主机 `ip:8088` 即可查看。
+
+##### 11. 挂载目录
 本镜像可以挂载目录到容器内的 `/data` 和 `/bigdata` 目录。
