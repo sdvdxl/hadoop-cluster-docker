@@ -1,6 +1,6 @@
 ## Run Hadoop Custer within Docker Containers
 
-本库克隆自[https://github.com/kiwenlau/hadoop-cluster-docker](https://github.com/kiwenlau/hadoop-cluster-docker) 并进行了适当修改，修改了部分错误，并修改源为国内的，从国内地址下载响应软件，以加快处理速度。
+本库克隆自[https://github.com/kiwenlau/hadoop-cluster-docker](https://github.com/kiwenlau/hadoop-cluster-docker) 并进行了适当修改，修改了部分错误，并修改源为国内的，从国内地址下载响应软件，以加快处理速度，并修改系统时区为+8。
 
 ##### 1. 下载软件
 本库中并未提交对应的软件，下面列出用到的软件，下载后重命名为要求的名字并放到本库根目录下：     
