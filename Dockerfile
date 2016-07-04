@@ -23,7 +23,7 @@ ADD soft/spark-1.6.1-bin-hadoop2.6.tar.gz  /usr/local
 ADD soft/jdk-8u91-linux-x64.tar.gz /usr/local/jvm
 
 # set environment variable
-ENV JAVA_HOME=/usr/local/jvm/jdk-8u91-linux-x64
+ENV JAVA_HOME=/usr/local/jvm/jdk1.8.0_91
 ENV SPARK_HOME=/usr/local/spark-1.6.1-bin-hadoop2.6
 ENV SCALA_HOME=/usr/local/jvm/scala-2.10.4.
 ENV HADOOP_HOME=/usr/local/hadoop-2.7.2
