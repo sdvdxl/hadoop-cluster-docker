@@ -29,7 +29,7 @@ ENV SCALA_HOME=/usr/local/jvm/scala-2.10.4.
 ENV HADOOP_HOME=/usr/local/hadoop-2.7.2
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop
-ENV PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCALA_HOME/bin:$SPARK_HOME/bin
+ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:/usr/local/hadoop/sbin:$SCALA_HOME/bin:$SPARK_HOME/bin
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
