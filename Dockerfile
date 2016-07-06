@@ -7,7 +7,7 @@ WORKDIR /root
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 COPY  config/sources.list.trusty /etc/apt/sources.list
-
+RUN apt-get update && apt-get install -q telnet
 # install hadoop 2.7.2
 ADD soft/hadoop-2.7.2.tar.gz /usr/local
 
