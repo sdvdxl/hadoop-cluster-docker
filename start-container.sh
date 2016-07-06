@@ -21,7 +21,7 @@ echo "start hadoop-master container..."
 
 
 # start hadoop slave container
-i=1
+i=2
 while [ $i -lt $N ]
 do
 	 docker rm -f hadoop-slave$i &> /dev/null
